@@ -13,3 +13,17 @@ body {
 a {
     text-decoration: none;
 }
+
+.top {
+    width: 100%;
+    height: 67px;
+    color: #E8833A;
+    font-size: 34px;
+    background-color: #c3cfd9;
+    display: grid;
+    place-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1;
+}

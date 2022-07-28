@@ -5,14 +5,15 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import axios from "axios";
 
-function Session({ date, weekday, showtimes }) {
-    console.log(showtimes)
+function Sessions({ date, weekday, showtimes }) {
     return (
         <div className="session" >
             <h1>{`${weekday} - ${date}`}</h1>
             <div>
                 {showtimes.map(time => (
-                    <div key={time.id} className="time">{time.name}</div>
+                    <Link key={time.id} to={`assentos/${time.id}`}>
+                        <div className="time">{time.name}</div>
+                    </Link>
                 ))}
             </div>
         </div>
@@ -32,10 +33,7 @@ export default function SelectSession() {
             setSessions(response.data.days)
             setMovie(response.data)
         })
-    }, [])
-
-
-    console.log(sessions, "sessions")
+    }, []);
 
     return (
         <>
@@ -43,7 +41,7 @@ export default function SelectSession() {
                 <div className="header">Selecione o horário</div>
             </Header>
             {sessions.map(session => (
-                <Session
+                <Sessions
                     key={session.id}
                     date={session.date}
                     weekday={session.weekday}
