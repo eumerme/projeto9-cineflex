@@ -32,7 +32,7 @@
 }
 
 .info {
-    width: 100%;
+    width: 350px;
     height: 63px;
     padding: 0 40px;
     margin-bottom: 20px;
@@ -50,55 +50,4 @@
     font-size: 13px;
     color: #4E5A65;
     margin-top: 4px;
-}
-
-.book-tickets {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.forms {
-    width: 100%;
-    height: auto;
-    padding: 24px;
-
-}
-
-label {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-input {
-    width: 87vw;
-    height: 51px;
-    outline: none;
-    border: 1px solid #D5D5D5;
-    border-radius: 3px;
-}
-
-input::placeholder {
-    font-size: 18px;
-    color: #AFAFAF;
-    font-style: italic;
-    padding-left: 15px;
-}
-
-.input {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
-}
-
-.book {
-    width: 225px;
-    height: 42px;
-    font-size: 18px;
-    color: #ffffff;
-    display: grid;
-    place-content: center;
-    border-radius: 3px;
-    margin: 20px 0 30px 0;
-    background-color: #E8833A;
 }

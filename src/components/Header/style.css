@@ -6,3 +6,10 @@
     place-content: center;
     margin-top: 67px;
 }
+
+.header.success {
+    color: #247A6B;
+    padding: 0 30%;
+    text-align: center;
+    font-weight: 700;
+}

@@ -1,0 +1,29 @@
+.sucess-info {
+    width: 100%;
+    height: 83px;
+    margin: 20px 0 40px 0;
+    padding-left: 30px;
+}
+
+.sucess-info > h1 {
+    font-size: 24px; 
+    font-weight: 700;
+    margin-bottom: 13px;
+}
+
+.sucess-info > h2 {
+    font-size: 22px;
+    line-height: 26px;
+}
+
+.home {
+    width: 225px;
+    height: 42px;
+    font-size: 18px;
+    color: #ffffff;
+    display: grid;
+    place-content: center;
+    border-radius: 3px;
+    margin: 20px 0 30px 0;
+    background-color: #E8833A;
+}
