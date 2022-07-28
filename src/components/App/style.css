@@ -9,3 +9,7 @@ body {
     font-weight: 400;
     color: #293845;
 }
+
+a {
+    text-decoration: none;
+}

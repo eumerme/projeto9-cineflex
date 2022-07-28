@@ -5,16 +5,19 @@
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 10px;
-    background-color: lightblue;
 }
 
 .movie {
     width: 145px;
     height: 209px;
-   /*  display: grid;
+    /* display: grid;
     place-content: center; */
     margin-bottom: 10px;
     padding: 8px;
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
-    /* background-color: lightcoral; */
+}
+
+.movie > img {
+    width: 100%;
+    height: 100%;
 }
