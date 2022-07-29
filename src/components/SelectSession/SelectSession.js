@@ -24,16 +24,16 @@ function Sessions({ date, weekday, showtimes }) {
 export default function SelectSession() {
     const { movieID } = useParams();
     const [sessions, setSessions] = useState([]);
-    const [movie, setMovie] = useState([])
+    const [movie, setMovie] = useState([]);
 
     useEffect(() => {
-        const request = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies/${movieID}/showtimes`);
+        const request = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/movies/${movieID}/showtimes`);
 
         request.then(response => {
             setSessions(response.data.days)
             setMovie(response.data)
         })
-    }, []);
+    }, [movieID]);
 
     return (
         <>

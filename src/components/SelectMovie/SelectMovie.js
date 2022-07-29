@@ -18,7 +18,7 @@ export default function SelectMovie() {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        const request = axios.get("https://mock-api.driven.com.br/api/v5/cineflex/movies");
+        const request = axios.get("https://mock-api.driven.com.br/api/v7/cineflex/movies");
 
         request.then(response => setMovies(response.data))
     }, []);

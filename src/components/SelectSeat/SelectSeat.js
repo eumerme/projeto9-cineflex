@@ -9,36 +9,59 @@ import BookTickets from "./BookTickets/BookTickets";
 
 
 
-function Seats({ name, isAvailable }) {
+function Seats({ name, isAvailable, seatId, seatSelected, setSeatSelected }) {
     const [selected, setSelected] = useState(false);
 
-    /* const unavailable = ((unavailable) => (alert("Esse assento não está disponível")));
-    console.log(unavailable) */
+    const bookSeat = (id) => {
+        const isSelected = seatSelected.find((seatId) => (seatId === id));
+
+        if(seatSelected.length === 0 || !isSelected) {
+            setSeatSelected([...seatSelected, id])
+        } else {
+            setSeatSelected(seatSelected.filter(seatId => seatId !== id))
+        };
+    };
+
     return (
-        <div
-            onClick={() => {
-                setSelected(!selected);
-            }}
-            className={`seat ${isAvailable ? "" : "unavailable"} ${selected ? "selected" : ""}`}
-        >
-            {name}
-        </div>
-    )
+        <>
+            {isAvailable ? (
+                <div
+                    onClick={() => {
+                        setSelected(!selected);
+                        bookSeat(seatId)
+                    }}
+                    className={`seat ${selected ? "selected" : ""}`}
+                >
+                    {name}
+                </div>
+            ) : (
+                <div
+                    onClick={() => alert("Esse assento não está disponível")}
+                    className="seat unavailable"
+                >
+                    {name}
+                </div>
+            )}
+        </>
+    );
 }
 
 export default function SelectSeat() {
     const { sessionID } = useParams();
     const [seats, setSeats] = useState([]);
     const [movie, setMovie] = useState([]);
+    const [seatSelected, setSeatSelected] = useState([]);
+
+    console.log(seatSelected)
 
     useEffect(() => {
-        const request = axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${sessionID}/seats`);
+        const request = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${sessionID}/seats`);
 
         request.then(response => {
             setSeats(response.data.seats)
             setMovie(response.data)
         })
-    }, []);
+    }, [sessionID]);
 
     return (
         <>
@@ -52,8 +75,11 @@ export default function SelectSeat() {
                             {seats.map(seat => (
                                 <Seats
                                     key={seat.id}
+                                    seatId={seat.id}
                                     name={seat.name}
                                     isAvailable={seat.isAvailable}
+                                    seatSelected={seatSelected}
+                                    setSeatSelected={setSeatSelected}
                                 />
                             ))}
                         </div>
@@ -71,7 +97,7 @@ export default function SelectSeat() {
                                 <h1>Indisponível</h1>
                             </div>
                         </div>
-                        <BookTickets />
+                        <BookTickets seatSelected={seatSelected} />
                     </Main>
                     <Footer>
                         <div className="footer">
