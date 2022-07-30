@@ -1,6 +1,7 @@
 .sucess-info {
     width: 100%;
-    height: 83px;
+    min-height: 83px;
+    max-height: 1000px;
     margin: 20px 0 40px 0;
     padding-left: 30px;
 }

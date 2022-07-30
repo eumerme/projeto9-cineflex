@@ -1,5 +1,5 @@
-import "./reset.css"
-import "./style.css"
+import "./reset.css";
+import "./style.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SelectMovie from "../SelectMovie/SelectMovie";
 import SelectSession from "../SelectSession/SelectSession";

@@ -1,4 +1,4 @@
-import "./style.css"
+import "./style.css";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -7,18 +7,26 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import BookTickets from "./BookTickets/BookTickets";
 
-
-
-function Seats({ name, isAvailable, seatId, seatSelected, setSeatSelected }) {
+function Seats({
+    name,
+    isAvailable,
+    seatId,
+    seatSelected,
+    setSeatSelected,
+    nameSeat,
+    setNameSeat
+}) {
     const [selected, setSelected] = useState(false);
 
-    const bookSeat = (id) => {
-        const isSelected = seatSelected.find((seatId) => (seatId === id));
+    const bookSeat = (id, name) => {
+        const isSelected = seatSelected.some(seatId => seatId === id);
 
-        if(seatSelected.length === 0 || !isSelected) {
-            setSeatSelected([...seatSelected, id])
+        if (seatSelected.length === 0 || !isSelected) {
+            setSeatSelected([...seatSelected, id]);
+            setNameSeat([...nameSeat, name]);
         } else {
-            setSeatSelected(seatSelected.filter(seatId => seatId !== id))
+            setSeatSelected(seatSelected.filter(seatId => seatId !== id));
+            setNameSeat(nameSeat.filter(seatName => seatName !== name));
         };
     };
 
@@ -28,7 +36,7 @@ function Seats({ name, isAvailable, seatId, seatSelected, setSeatSelected }) {
                 <div
                     onClick={() => {
                         setSelected(!selected);
-                        bookSeat(seatId)
+                        bookSeat(seatId, name)
                     }}
                     className={`seat ${selected ? "selected" : ""}`}
                 >
@@ -51,13 +59,12 @@ export default function SelectSeat() {
     const [seats, setSeats] = useState([]);
     const [movie, setMovie] = useState([]);
     const [seatSelected, setSeatSelected] = useState([]);
-
-    console.log(seatSelected)
+    const [nameSeat, setNameSeat] = useState([]);
 
     useEffect(() => {
-        const request = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${sessionID}/seats`);
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${sessionID}/seats`);
 
-        request.then(response => {
+        promise.then(response => {
             setSeats(response.data.seats)
             setMovie(response.data)
         })
@@ -80,6 +87,8 @@ export default function SelectSeat() {
                                     isAvailable={seat.isAvailable}
                                     seatSelected={seatSelected}
                                     setSeatSelected={setSeatSelected}
+                                    nameSeat={nameSeat}
+                                    setNameSeat={setNameSeat}
                                 />
                             ))}
                         </div>
@@ -97,7 +106,12 @@ export default function SelectSeat() {
                                 <h1>Indisponível</h1>
                             </div>
                         </div>
-                        <BookTickets seatSelected={seatSelected} />
+                        <BookTickets
+                            seatSelected={seatSelected}
+                            nameSeat={nameSeat}
+                            title={movie.movie.title}
+                            weekday={movie.day.weekday}
+                        />
                     </Main>
                     <Footer>
                         <div className="footer">

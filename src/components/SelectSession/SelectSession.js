@@ -27,9 +27,9 @@ export default function SelectSession() {
     const [movie, setMovie] = useState([]);
 
     useEffect(() => {
-        const request = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/movies/${movieID}/showtimes`);
+        const promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/movies/${movieID}/showtimes`);
 
-        request.then(response => {
+        promise.then(response => {
             setSessions(response.data.days)
             setMovie(response.data)
         })
