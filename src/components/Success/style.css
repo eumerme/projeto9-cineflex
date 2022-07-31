@@ -2,7 +2,7 @@
     width: 100%;
     min-height: 83px;
     max-height: 1000px;
-    margin: 20px 0 40px 0;
+    margin: 20px 0 30px 0;
     padding-left: 30px;
 }
 
@@ -17,15 +17,23 @@
     line-height: 26px;
 }
 
-.home {
+.back-home {
+    width: 100%;
+    height: auto;
+    display: grid;
+    place-content: center;
+}
+
+.back-home-button {
     width: 225px;
     height: 42px;
     font-size: 18px;
     color: #ffffff;
     display: grid;
     place-content: center;
+    border: none;
     border-radius: 3px;
-    margin: 20px 0 30px 0;
+    margin: 50px 0 30px 0;
     background-color: #E8833A;
     box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }

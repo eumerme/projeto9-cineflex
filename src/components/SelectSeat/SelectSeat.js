@@ -6,6 +6,8 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import BookTickets from "./BookTickets/BookTickets";
+import loading from "../assets/ico_loading.gif";
+import BackButton from "../BackButton/BackButton";
 
 function Seats({
     name,
@@ -44,7 +46,7 @@ function Seats({
                 </div>
             ) : (
                 <div
-                    onClick={() => alert("Esse assento não está disponível")}
+                    onClick={() => alert("Esse assento não está disponível.")}
                     className="seat unavailable"
                 >
                     {name}
@@ -56,8 +58,8 @@ function Seats({
 
 export default function SelectSeat() {
     const { sessionID } = useParams();
-    const [seats, setSeats] = useState([]);
-    const [movie, setMovie] = useState([]);
+    const [seats, setSeats] = useState(null);
+    const [movie, setMovie] = useState(null);
     const [seatSelected, setSeatSelected] = useState([]);
     const [nameSeat, setNameSeat] = useState([]);
 
@@ -72,8 +74,13 @@ export default function SelectSeat() {
 
     return (
         <>
-            {(movie.length !== 0) ? (
+            {(seats === null || movie === null) ? (
+                <div className="loading">
+                    <img src={loading} alt="carregando" />
+                </div>
+            ) : (
                 <>
+                    <BackButton />
                     <Header>
                         <div className="header">Selecione o(s) assento(s)</div>
                     </Header>
@@ -123,7 +130,7 @@ export default function SelectSeat() {
                         </div>
                     </Footer>
                 </>
-            ) : ("")}
+            )}
         </>
     );
 }

@@ -33,7 +33,7 @@ input::placeholder {
     font-style: italic;
 }
 
-button {
+.book-button {
     width: 225px;
     height: 42px;
     font-size: 18px;

@@ -1,0 +1,9 @@
+.returnTo {
+    width: 25px;
+    height: 25px;
+    position: fixed;
+    top: 22px;
+    left: 5px;
+    z-index: 2;
+    color: #E8833A;
+}

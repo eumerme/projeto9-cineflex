@@ -1,9 +1,11 @@
 import "./style.css";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import axios from "axios";
+import loading from "../assets/ico_loading.gif";
+import BackButton from "../BackButton/BackButton";
 
 function Sessions({ date, weekday, showtimes }) {
     return (
@@ -23,7 +25,7 @@ function Sessions({ date, weekday, showtimes }) {
 
 export default function SelectSession() {
     const { movieID } = useParams();
-    const [sessions, setSessions] = useState([]);
+    const [sessions, setSessions] = useState(null);
     const [movie, setMovie] = useState([]);
 
     useEffect(() => {
@@ -37,23 +39,32 @@ export default function SelectSession() {
 
     return (
         <>
-            <Header>
-                <div className="header">Selecione o horário</div>
-            </Header>
-            {sessions.map(session => (
-                <Sessions
-                    key={session.id}
-                    date={session.date}
-                    weekday={session.weekday}
-                    showtimes={session.showtimes}
-                />
-            ))}
-            <Footer>
-                <div className="footer">
-                    <img src={movie.posterURL} alt="" />
-                    <h1>{movie.title}</h1>
+            {sessions === null ? (
+                <div className="loading">
+                    <img src={loading} alt="carregando" />
                 </div>
-            </Footer>
+            ) : (
+                <>
+                    <BackButton />
+                    <Header>
+                        <div className="header">Selecione o horário</div>
+                    </Header>
+                    {sessions.map(session => (
+                        <Sessions
+                            key={session.id}
+                            date={session.date}
+                            weekday={session.weekday}
+                            showtimes={session.showtimes}
+                        />
+                    ))}
+                    <Footer>
+                        <div className="footer">
+                            <img src={movie.posterURL} alt="" />
+                            <h1>{movie.title}</h1>
+                        </div>
+                    </Footer>
+                </>
+            )}
         </>
     );
 }
