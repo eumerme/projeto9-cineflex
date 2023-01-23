@@ -14,28 +14,15 @@ export default function Seats() {
 	const [movie, setMovie] = useState(null);
 	const [seatSelected, setSeatSelected] = useState([]);
 	const [nameSeat, setNameSeat] = useState([]);
-	const [selected, setSelected] = useState(false);
 
 	useEffect(() => {
 		const promise = axios.get(`https://mock-api.driven.com.br/api/v7/cineflex/showtimes/${sessionID}/seats`);
 
-		promise.then((response) => {
-			setSeats(response.data.seats);
-			setMovie(response.data);
+		promise.then((res) => {
+			setSeats(res.data.seats);
+			setMovie(res.data);
 		});
 	}, [sessionID]);
-
-	const bookSeat = (id, name) => {
-		const isSelected = seatSelected.some((seatId) => seatId === id);
-
-		if (seatSelected.length === 0 || !isSelected) {
-			setSeatSelected([...seatSelected, id]);
-			setNameSeat([...nameSeat, name]);
-		} else {
-			setSeatSelected(seatSelected.filter((seatId) => seatId !== id));
-			setNameSeat(nameSeat.filter((seatName) => seatName !== name));
-		}
-	};
 
 	return (
 		<>
@@ -47,24 +34,16 @@ export default function Seats() {
 					<div className="main">
 						<div className="seats">
 							{seats.map((seat) => (
-								<>
-									{seat.isAvailable && (
-										<div
-											onClick={() => {
-												setSelected(!selected);
-												bookSeat(seat.id, seat.name);
-											}}
-											className={`seat ${selected ? "selected" : ""}`}
-										>
-											{seat.name}
-										</div>
-									)}
-									{!seat.isAvailable && (
-										<div onClick={() => alert("Esse assento não está disponível.")} className="seat unavailable">
-											{seat.name}
-										</div>
-									)}
-								</>
+								<SelectSeats
+									key={seat.id}
+									seatId={seat.id}
+									name={seat.name}
+									isAvailable={seat.isAvailable}
+									seatSelected={seatSelected}
+									setSeatSelected={setSeatSelected}
+									nameSeat={nameSeat}
+									setNameSeat={setNameSeat}
+								/>
 							))}
 						</div>
 						<div className="info">
@@ -96,6 +75,43 @@ export default function Seats() {
 						</div>
 					</Footer>
 				</>
+			)}
+		</>
+	);
+}
+
+function SelectSeats({ name, isAvailable, seatId, seatSelected, setSeatSelected, nameSeat, setNameSeat }) {
+	const [selected, setSelected] = useState(false);
+
+	const bookSeat = (id, name) => {
+		const isSelected = seatSelected.some((seatId) => seatId === id);
+
+		if (seatSelected.length === 0 || !isSelected) {
+			setSeatSelected([...seatSelected, id]);
+			setNameSeat([...nameSeat, name]);
+		} else {
+			setSeatSelected(seatSelected.filter((seatId) => seatId !== id));
+			setNameSeat(nameSeat.filter((seatName) => seatName !== name));
+		}
+	};
+
+	return (
+		<>
+			{isAvailable && (
+				<div
+					onClick={() => {
+						setSelected(!selected);
+						bookSeat(seatId, name);
+					}}
+					className={`seat ${selected ? "selected" : ""}`}
+				>
+					{name}
+				</div>
+			)}
+			{!isAvailable && (
+				<div onClick={() => alert("Esse assento não está disponível.")} className="seat unavailable">
+					{name}
+				</div>
 			)}
 		</>
 	);
