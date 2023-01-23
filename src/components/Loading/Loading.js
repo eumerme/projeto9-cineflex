@@ -1,5 +1,5 @@
 import "./style.css";
-import loading from "../../components/assets/ico_loading.gif";
+import loading from "../../assets/ico_loading.gif";
 
 export default function Loading() {
 	return (

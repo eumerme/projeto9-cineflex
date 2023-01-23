@@ -1,14 +1,12 @@
 import "./style.css";
 import { Link, useLocation } from "react-router-dom";
 import Header from "../Header/Header";
-import BackButton from "../BackButton/BackButton";
 
 export default function Success() {
 	const { state } = useLocation();
 
 	return (
 		<>
-			<BackButton />
 			<Header>Pedido feito com sucesso!</Header>
 			<div className="sucess-info">
 				<h1>Filme e Sessão</h1>
